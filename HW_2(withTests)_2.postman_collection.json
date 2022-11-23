@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "9773d4dd-4436-48d7-bb13-6ec830b22bca",
+		"name": "HW_2(byTolya)_2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21446450"
+	},
+	"item": [
+		{
+			"name": "EP_object_info_4(2_task_byTolya)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// http://162.55.220.72:5005/object_info_4\r",
+							"// 1. Отправить запрос.\r",
+							"// 2. Статус код 200\r",
+							"\r",
+							"// 3. Спарсить response body в json.\r",
+							"let responJS = pm.response.json()\r",
+							"\r",
+							"// 4. Спарсить request.\r",
+							"requeJS = {}\r",
+							"const paramsString = request.url.split('?')[1];\r",
+							"const eachParamArray = paramsString.split('&');\r",
+							"eachParamArray.forEach((param) => {\r",
+							"    const key = param.split('=')[0];\r",
+							"    const value = param.split('=')[1];\r",
+							"    Object.assign(requeJS, {[key]: value});\r",
+							"});\r",
+							"\r",
+							"// 5. Проверить, что name в ответе равно name s request (name забрать из request.)\r",
+							"pm.test(\"Check eql nameRequest & nameResponse\", () => pm.expect(requeJS.name).to.eql(responJS.name))\r",
+							"\r",
+							"// 6. Проверить, что age в ответе равно age из request (age забрать из request.)\r",
+							"pm.test(\"Check eql ageRequest & ageResponse\", () => pm.expect(+requeJS.age).to.eql(responJS.age))\r",
+							"\r",
+							"// 7. Вывести в консоль параметр salary из request.\r",
+							"console.log(requeJS.salary)\r",
+							"\r",
+							"// 8. Вывести в консоль параметр salary из response.\r",
+							"console.log(responJS.salary)\r",
+							"\r",
+							"// 9. Вывести в консоль 0-й элемент параметра salary из response.\r",
+							"console.log(responJS.salary[0])\r",
+							"\r",
+							"// 10. Вывести в консоль 1-й элемент параметра salary параметр salary из response.\r",
+							"console.log(responJS.salary[1])\r",
+							"\r",
+							"// 11. Вывести в консоль 2-й элемент параметра salary параметр salary из response.\r",
+							"console.log(responJS.salary[2])\r",
+							"\r",
+							"// 12-13-14\r",
+							"// 12. Проверить, что 0-й элемент параметра salary равен salary из request (salary забрать из request.)\r",
+							"// 13. Проверить, что 1-й элемент параметра salary равен salary*2 из request (salary забрать из request.)\r",
+							"// 14. Проверить, что 2-й элемент параметра salary равен salary*3 из request (salary забрать из request.)\r",
+							"pm.test(`Check request.salary ${+requeJS.salary}`, () => {\r",
+							"    for(let i = 0; i < responJS.salary.length; i++) {\r",
+							"        pm.expect(+requeJS.salary * (i + 1)).to.eql(+responJS.salary[i])\r",
+							"    }\r",
+							"}\r",
+							")\r",
+							"\r",
+							"// 15. Создать в окружении переменную name\r",
+							"pm.environment.set(\"name1\", \"\")\r",
+							"\r",
+							"// 16. Создать в окружении переменную age\r",
+							"pm.environment.set(\"age1\")\r",
+							"\r",
+							"// 17. Создать в окружении переменную salary\r",
+							"pm.environment.set(\"salary1\")\r",
+							"\r",
+							"// 18. Передать в окружение переменную name\r",
+							"pm.environment.set(\"name1\", responJS.name)\r",
+							"\r",
+							"// 19. Передать в окружение переменную age\r",
+							"pm.environment.set(\"age1\", responJS.age)\r",
+							"\r",
+							"// 20. Передать в окружение переменную salary\r",
+							"pm.environment.set(\"salary1\", responJS.salary[0])\r",
+							"\r",
+							"// 21. Написать цикл который выведет в консоль по порядку элементы списка из параметра salary.\r",
+							"responJS.salary.forEach(item => console.log(+item))"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "{{name}}",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://162.55.220.72:5005/object_info_4?name={{name}}&age={{age}}&salary={{salary}}",
+					"protocol": "http",
+					"host": [
+						"162",
+						"55",
+						"220",
+						"72"
+					],
+					"port": "5005",
+					"path": [
+						"object_info_4"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "{{name}}"
+						},
+						{
+							"key": "age",
+							"value": "{{age}}"
+						},
+						{
+							"key": "salary",
+							"value": "{{salary}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
